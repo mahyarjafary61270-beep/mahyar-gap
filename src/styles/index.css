@@ -1,0 +1,144 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Vazirmatn', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Deep ink surfaces */
+  --color-ink-950: #06070c;
+  --color-ink-900: #0b0d14;
+  --color-ink-850: #0e111a;
+  --color-ink-800: #12151f;
+  --color-ink-750: #161a27;
+  --color-ink-700: #1b2030;
+  --color-ink-600: #232941;
+  --color-ink-500: #2e3550;
+
+  /* Brand violet → sky */
+  --color-brand-200: #d5ccff;
+  --color-brand-300: #b3a5ff;
+  --color-brand-400: #9b8bff;
+  --color-brand-500: #7c5cff;
+  --color-brand-600: #6547e8;
+  --color-brand-700: #4f37c4;
+  --color-accent-400: #38bdf8;
+  --color-accent-500: #0ea5e9;
+
+  /* Foreground mist */
+  --color-mist-50: #f4f5fa;
+  --color-mist-100: #e8eaf2;
+  --color-mist-200: #d3d7e4;
+  --color-mist-300: #b9bed0;
+  --color-mist-400: #9aa1b5;
+  --color-mist-500: #7a8098;
+  --color-mist-600: #5c6278;
+
+  --shadow-glow: 0 0 40px -12px rgb(124 92 255 / 0.55);
+  --shadow-card: 0 8px 30px -12px rgb(0 0 0 / 0.55);
+
+  --animate-fade-up: fade-up 0.25s ease-out both;
+  --animate-pop-in: pop-in 0.18s ease-out both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-ink-900 text-mist-100 font-sans antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* Refined scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.12) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.1);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.18);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Reusable surface treatments */
+@utility glass {
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.07);
+  backdrop-filter: blur(14px);
+}
+
+@utility brand-gradient {
+  background-image: linear-gradient(135deg, #7c5cff 0%, #5d3fe0 45%, #0ea5e9 130%);
+}
+
+@utility brand-text {
+  background-image: linear-gradient(120deg, #b3a5ff, #7c5cff 45%, #38bdf8);
+  background-clip: text;
+  color: transparent;
+}
+
+/* Speaking indicator ring */
+@utility speaking-ring {
+  box-shadow:
+    0 0 0 2px rgb(124 92 255 / 0.9),
+    0 0 18px 2px rgb(124 92 255 / 0.45);
+}
+
+/* Equalizer bars for the radio bot */
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+/* Range slider — per-participant volume */
+input[type='range'].mg-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to left, #7c5cff var(--fill, 100%), rgb(255 255 255 / 0.12) var(--fill, 100%));
+  outline: none;
+  cursor: pointer;
+}
+input[type='range'].mg-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #e8eaf2;
+  border: 3px solid #7c5cff;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+  transition: transform 0.12s ease;
+}
+input[type='range'].mg-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type='range'].mg-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #e8eaf2;
+  border: 3px solid #7c5cff;
+}
