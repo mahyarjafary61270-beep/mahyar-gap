@@ -11,10 +11,13 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends ffmpeg ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-# Install all dependencies (dev deps are needed to build)
+# Install all dependencies (dev deps are needed to build).
+# NODE_ENV must be flipped to development here, otherwise npm skips
+# devDependencies (vite, tailwind, typescript) and the build fails.
 FROM base AS build
+ENV NODE_ENV=development
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --include=dev
 COPY . .
 RUN npm run build
 
